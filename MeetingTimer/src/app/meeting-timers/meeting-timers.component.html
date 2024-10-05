@@ -1,0 +1,7 @@
+<h4>Timers</h4>
+@for (timer of timers(); track timer.id) {
+    <app-meeting-timer-card [timer]="timer" class="mb-3"></app-meeting-timer-card>
+}
+<div class="justify-content-center">
+    <button type="button" class="btn btn-primary" (click)="timerService.addTimer()">Add Timer</button>
+</div>
