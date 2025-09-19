@@ -1,0 +1,215 @@
+<h4>{{ isEditMode ? "Edit" : "Create" }} New Event</h4>
+@if (errorMessage != null){
+<i class="text-danger">{{ errorMessage }}</i>
+}
+<form [formGroup]="createEventForm" (ngSubmit)="submitNewEvent()">
+  <div class="row mt-2 mb-2">
+    <div class="col-6 col-lg-4">
+      <div class="form-floating form-floating-sm">
+        <input
+          class="form-control form-control-sm"
+          id="name"
+          formControlName="name"
+        />
+        <label for="name">Name *</label>
+      </div>
+    </div>
+    <div class="col-6 col-lg-4">
+      <div class="form-floating form-floating-sm">
+        <input
+          class="form-control form-control-sm"
+          id="date"
+          formControlName="date"
+          type="date"
+        />
+        <label for="date">Date *</label>
+      </div>
+    </div>
+    <div class="col-6 col-lg-4">
+      <div class="form-floating form-floating-sm">
+        <input
+          class="form-control form-control-sm"
+          id="onlineLink"
+          formControlName="onlineLink"
+          type="url"
+        />
+        <label for="onlineLink">Online Link</label>
+      </div>
+    </div>
+    <div class="col-12 mt-2" formArrayName="talks">
+      <h5>Talks</h5>
+      <div class="row">
+        @for (talkControl of talkArray.controls; track talkControl){
+        <div
+          [formGroupName]="$index"
+          class="col-12 col-lg-5 card border-primary mb-3 m-2"
+        >
+          <div class="card-header">Talk {{ $index + 1 }}</div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="form-label">Talk Name *</label>
+                <input formControlName="name" class="form-control" />
+              </div>
+
+              <div class="col-md-8">
+                <label class="form-label">Description</label>
+                <textarea
+                  formControlName="description"
+                  class="form-control"
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Speaker Selection -->
+            <div class="mt-3">
+              <h5>Speaker</h5>
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="form-label">Speaker Name *</label>
+                  <input
+                    type="text"
+                    formControlName="speakerName"
+                    class="form-control"
+                    placeholder="Enter speaker name"
+                    [class.is-invalid]="
+                      talkControl.get('speakerName')?.invalid &&
+                      talkControl.get('speakerName')?.touched
+                    "
+                  />
+                  <div class="invalid-feedback">Speaker name is required.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Meeting Timer Details -->
+            <div formGroupName="meetingTimer">
+              <h5>Meeting Timer</h5>
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="form-label">
+                    Total Time
+                    <i>(HH:MM:SS)</i>
+                  </label>
+                  <div class="input-group form-floating form-floating-sm">
+                    <input
+                      type="number"
+                      formControlName="totalTimeHour"
+                      class="form-control"
+                    />
+                    <input
+                      type="number"
+                      formControlName="totalTimeMinutes"
+                      class="form-control"
+                    />
+                    <input
+                      type="number"
+                      formControlName="totalTimeSeconds"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Display Name </label>
+                  <input formControlName="displayName" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label text-warning"
+                    >Warning Time
+                    <i>(HH:MM:SS)</i>
+                  </label>
+                  <div class="input-group">
+                    <input
+                      type="number"
+                      formControlName="warningTimeHour"
+                      class="form-control"
+                    />
+                    <input
+                      type="number"
+                      formControlName="warningTimeMinutes"
+                      class="form-control"
+                    />
+                    <input
+                      type="number"
+                      formControlName="warningTimeSeconds"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label text-warning">Warning Message</label>
+                  <input
+                    formControlName="warningMessage"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label text-danger"
+                    >Last Call Time
+                    <i>(HH:MM:SS)</i>
+                  </label>
+                  <div class="input-group">
+                    <input
+                      type="number"
+                      formControlName="lastCallTimeHour"
+                      class="form-control"
+                    />
+                    <input
+                      type="number"
+                      formControlName="lastCallTimeMinutes"
+                      class="form-control"
+                    />
+                    <input
+                      type="number"
+                      formControlName="lastCallTimeSeconds"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label text-danger"
+                    >Last Call Message</label
+                  >
+                  <input
+                    formControlName="lastCallMessage"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <button
+                type="button"
+                class="btn btn-danger mt-4"
+                (click)="removeTalk($index)"
+              >
+                <i class="fas fa-trash"></i> Remove
+              </button>
+            </div>
+          </div>
+        </div>
+        }
+        <div class="col-12">
+          <button
+            class="btn btn-outline-success mt-2"
+            (click)="addTalk()"
+            type="button"
+          >
+            Add Talk
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-lg mt-4">
+      <button
+        class="btn btn-outline-primary"
+        type="submit"
+        [disabled]="createEventForm.invalid"
+      >
+        Save Event
+      </button>
+      @if (createEventForm.invalid){ Please create a valid event before
+      proceeding }
+    </div>
+  </div>
+</form>

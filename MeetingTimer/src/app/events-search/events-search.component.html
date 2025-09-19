@@ -1,0 +1,125 @@
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Events</h2>
+  </div>
+
+  <!-- Search Form -->
+  <form [formGroup]="eventForm" (ngSubmit)="searchEvents()" class="mb-4">
+    <div class="row">
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <input
+            class="form-control"
+            id="searchTerm"
+            formControlName="searchTerm"
+            placeholder="Search events..."
+          />
+          <button class="btn btn-outline-primary" type="submit">
+            <i class="fas fa-search"></i> Search
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="row g-4">
+    @if (events.length > 0){
+    <!-- Event Cards -->
+    @for (event of events; track event.id){
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100">
+        <div
+          class="card-header bg-primary text-white d-flex justify-content-between align-items-center"
+        >
+          <h5 class="card-title mb-0 text-truncate">{{ event.name }}</h5>
+          <div class="dropdown">
+            <button
+              class="btn btn-sm btn-outline-light dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a class="dropdown-item" [routerLink]="['view', event.id]">
+                  <i class="fas fa-eye me-2"></i>View Event
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['edit', event.id]">
+                  <i class="fas fa-edit me-2"></i>Edit Event
+                </a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a
+                  class="dropdown-item text-danger"
+                  href="#"
+                  (click)="deleteEvent(event.id!); $event.preventDefault()"
+                >
+                  <i class="fas fa-trash me-2"></i>Delete Event
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-body d-flex flex-column">
+          <div class="mb-3">
+            <div class="d-flex align-items-center mb-2">
+              <i class="fas fa-calendar text-primary me-2"></i>
+              <small class="text-muted">{{
+                event.date | date : "mediumDate"
+              }}</small>
+            </div>
+            @if (event.onlineLink) {
+            <div class="d-flex align-items-center mb-2">
+              <i class="fas fa-link text-success me-2"></i>
+              <a
+                [href]="event.onlineLink"
+                target="_blank"
+                class="text-success text-decoration-none small"
+              >
+                Join Online Meeting
+              </a>
+            </div>
+            } @if (event.firstTalkTitle) {
+            <div class="d-flex align-items-center">
+              <i class="fas fa-microphone text-info me-2"></i>
+              <small class="text-muted text-truncate">{{
+                event.firstTalkTitle
+              }}</small>
+            </div>
+            }
+          </div>
+          <div class="mt-auto">
+            <button
+              class="btn btn-primary btn-sm w-100"
+              [routerLink]="['view', event.id]"
+            >
+              <i class="fas fa-play me-2"></i>Start Event
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    } }
+    <!-- Create New Event Card -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 border-primary border-2">
+        <div
+          class="card-body d-flex flex-column justify-content-center align-items-center text-center"
+        >
+          <h5 class="card-title text-primary">Create New Event</h5>
+          <p class="card-text text-muted mb-4">
+            Start planning your next meeting or presentation
+          </p>
+          <button class="btn btn-primary btn" [routerLink]="['create']">
+            <i class="fas fa-plus me-2"></i>Create Event
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

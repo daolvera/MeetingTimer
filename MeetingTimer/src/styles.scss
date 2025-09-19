@@ -1,3 +1,241 @@
+// Theme Variables
+:root {
+  --theme-bg-primary: #ffffff;
+  --theme-bg-secondary: #f8f9fa;
+  --theme-bg-tertiary: #e9ecef;
+  --theme-text-primary: #212529;
+  --theme-text-secondary: #6c757d;
+  --theme-text-muted: #6c757d;
+  --theme-border-color: #dee2e6;
+  --theme-border-subtle: #e9ecef;
+  
+  --theme-warning-bg: #fff3cd;
+  --theme-warning-border: #ffecb5;
+  --theme-warning-text: #664d03;
+  --theme-danger-bg: #f8d7da;
+  --theme-danger-border: #f5c2c7;
+  --theme-danger-text: #842029;
+  --theme-success-bg: #d1e7dd;
+  --theme-success-border: #badbcc;
+  --theme-success-text: #0f5132;
+  
+  --theme-navbar-bg: #495057;
+  --theme-navbar-text: #ffffff;
+  --theme-navbar-brand: #ffffff;
+  
+  --theme-btn-outline-primary-color: #1a1a1a;
+  --theme-btn-outline-primary-border: #1a1a1a;
+  --theme-btn-outline-primary-hover-bg: #1a1a1a;
+  --theme-btn-outline-primary-hover-color: #ffffff;
+}
 
-@import "../node_modules/bootswatch/dist/flatly/variables";
+.theme-dark {
+  --theme-bg-primary: #212529;
+  --theme-bg-secondary: #343a40;
+  --theme-bg-tertiary: #495057;
+  --theme-text-primary: #ffffff;
+  --theme-text-secondary: #adb5bd;
+  --theme-text-muted: #6c757d;
+  --theme-border-color: #495057;
+  --theme-border-subtle: #343a40;
+  
+  --theme-warning-bg: #664d03;
+  --theme-warning-border: #66512c;
+  --theme-warning-text: #ffecb5;
+  --theme-danger-bg: #842029;
+  --theme-danger-border: #a52834;
+  --theme-danger-text: #f5c2c7;
+  --theme-success-bg: #0f5132;
+  --theme-success-border: #146c43;
+  --theme-success-text: #badbcc;
+  
+  --theme-navbar-bg: #000000;
+  --theme-navbar-text: #ffffff;
+  --theme-navbar-brand: #ffffff;
+  
+  --theme-btn-outline-primary-color: #6ea8fe;
+  --theme-btn-outline-primary-border: #6ea8fe;
+  --theme-btn-outline-primary-hover-bg: #6ea8fe;
+  --theme-btn-outline-primary-hover-color: #000000;
+}
+
+@import "../node_modules/bootswatch/dist/lux/variables";
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+body {
+  background-color: var(--theme-bg-primary);
+  color: var(--theme-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar {
+  background-color: var(--theme-navbar-bg) !important;
+  
+  .navbar-brand,
+  .nav-link {
+    color: var(--theme-navbar-text) !important;
+  }
+}
+
+.card {
+  background-color: var(--theme-bg-secondary);
+  border-color: var(--theme-border-color);
+  color: var(--theme-text-primary);
+}
+
+.table {
+  --bs-table-bg: var(--theme-bg-primary);
+  --bs-table-color: var(--theme-text-primary);
+  --bs-table-border-color: var(--theme-border-color);
+  --bs-table-striped-bg: var(--theme-bg-secondary);
+  --bs-table-hover-bg: var(--theme-bg-tertiary);
+}
+
+.form-control {
+  background-color: var(--theme-bg-primary);
+  border-color: var(--theme-border-color);
+  color: var(--theme-text-primary);
+  
+  &:focus {
+    background-color: var(--theme-bg-primary);
+    border-color: var(--bs-primary);
+    color: var(--theme-text-primary);
+  }
+}
+
+.form-select {
+  background-color: var(--theme-bg-primary);
+  border-color: var(--theme-border-color);
+  color: var(--theme-text-primary);
+}
+
+.form-floating > label {
+  color: var(--theme-text-secondary);
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select:focus ~ label,
+.form-floating > .form-select:not([data-bs-placeholder]) ~ label {
+  color: var(--theme-text-secondary);
+}
+
+.theme-dark .form-control,
+.theme-dark .form-select {
+  background-color: var(--theme-bg-primary);
+  border-color: var(--theme-border-color);
+  color: var(--theme-text-primary);
+  
+  &:focus {
+    background-color: var(--theme-bg-primary);
+    border-color: var(--bs-primary);
+    color: var(--theme-text-primary);
+  }
+  
+  &::placeholder {
+    color: var(--theme-text-secondary);
+  }
+}
+
+.theme-dark .form-floating > label {
+  color: var(--theme-text-secondary);
+}
+
+.theme-dark .form-floating > .form-control:focus ~ label,
+.theme-dark .form-floating > .form-control:not(:placeholder-shown) ~ label,
+.theme-dark .form-floating > .form-select:focus ~ label,
+.theme-dark .form-floating > .form-select:not([data-bs-placeholder]) ~ label {
+  color: var(--theme-text-secondary);
+}
+
+.form-floating > label::after {
+  background-color: var(--theme-bg-primary);
+}
+
+.theme-dark .form-floating > label::after {
+  background-color: var(--theme-bg-primary);
+}
+.alert-warning {
+  background-color: var(--theme-warning-bg);
+  border-color: var(--theme-warning-border);
+  color: var(--theme-warning-text);
+}
+
+.alert-danger {
+  background-color: var(--theme-danger-bg);
+  border-color: var(--theme-danger-border);
+  color: var(--theme-danger-text);
+}
+
+.alert-success {
+  background-color: var(--theme-success-bg);
+  border-color: var(--theme-success-border);
+  color: var(--theme-success-text);
+}
+
+.btn-outline-primary {
+  color: var(--theme-btn-outline-primary-color);
+  border-color: var(--theme-btn-outline-primary-border);
+  
+  &:hover {
+    background-color: var(--theme-btn-outline-primary-hover-bg);
+    border-color: var(--theme-btn-outline-primary-border);
+    color: var(--theme-btn-outline-primary-hover-color);
+  }
+  
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(110, 168, 254, 0.25);
+    background-color: var(--theme-btn-outline-primary-hover-bg);
+    border-color: var(--theme-btn-outline-primary-border);
+    color: var(--theme-btn-outline-primary-hover-color);
+  }
+  
+  &:active,
+  &.active {
+    background-color: var(--theme-btn-outline-primary-hover-bg);
+    border-color: var(--theme-btn-outline-primary-border);
+    color: var(--theme-btn-outline-primary-hover-color);
+  }
+  
+  &:disabled,
+  &.disabled {
+    color: var(--theme-btn-outline-primary-color);
+    background-color: transparent;
+    opacity: 0.65;
+  }
+}
+
+* {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+// Utilities
+.pointer {
+  cursor: pointer;
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  :root, .theme-light {
+    --theme-border-color: #000000;
+    --theme-text-primary: #000000;
+    --theme-bg-primary: #ffffff;
+  }
+  
+  .theme-dark {
+    --theme-border-color: #ffffff;
+    --theme-text-primary: #ffffff;
+    --theme-bg-primary: #000000;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
